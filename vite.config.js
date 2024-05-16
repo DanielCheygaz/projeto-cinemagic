@@ -8,4 +8,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+		hmr: {
+			host: "projeto-cinemagic.test"
+		}
+    }
 });
