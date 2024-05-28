@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Department of Computer Engineering</title>
+    <title>CineMagic</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -13,7 +13,6 @@
     <!-- Scripts AND CSS Fileds -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-800">
 
@@ -36,71 +35,23 @@
                         <!-- Menu Item: Courses -->
                         <x-menus.menu-item
                             content="Movies"
+                            selectable="1"
                             href="{{ route('movies.index') }}"
                             selected=""
                         />
+                        <x-menus.menu-item
+                            content="Screenings"
+                            selectable="1"
+                            href="{{ route('screenings.index') }}"
+                            selected=""
+                        />
+
+
 
                         <!-- Menu Item: Curricula -->
-                        <!--
-                            <x-menus.submenu-full-width
-                            content="Curricula"
-                            selectable="1"
-                            selected="0"
-                            uniqueName="submenu_curricula">
-                            @foreach ($movies as $movie)
-                                <x-menus.submenu-item
-                                :content="$movie->title"
-                                selectable="1"
-                                selected="0"
-                                href="#"/>
-                            @endforeach
-                        </x-menus.submenu-full-width>
-                        -->
 
-                        <!-- Menu Item: Disciplines -->
-                        <!--
-                        <x-menus.menu-item
-                            content="Disciplines"
-                            selectable="1"
-                            href=""
-                            selected=""
-                            />
-                        -->
-                        <!-- Menu Item: Teachers -->
-                        <!--
-                        <x-menus.menu-item
-                            content="Teachers"
-                            selectable="1"
-                            href=""
-                            selected=""
-                            />
-                        -->
-                        <!-- Menu Item: Others -->
-                        <!--
-                        <x-menus.submenu
-                            selectable="0"
-                            uniqueName="submenu_others"
-                            content="More">
-                                <x-menus.submenu-item
-                                    content="Students"
-                                    selectable="0"
-                                    href="" />
-                                <x-menus.submenu-item
-                                    content="Administratives"
-                                    selectable="0"
-                                    href="" />
-                                <hr>
-                                <x-menus.submenu-item
-                                    content="Departments"
-                                    selectable="0"
-                                    href=""/>
-                                <x-menus.submenu-item
-                                    content="Course Management"
-                                    href=""/>
-                        </x-menus.submenu>
+                        <!-- inserir o qeu tá no txt como backup aqui-->
 
-                        <div class="grow"></div>
-                    -->
                         <!-- Menu Item: Cart -->
                         <x-menus.cart
                             href="#"
@@ -168,7 +119,7 @@
         <header class="bg-white dark:bg-gray-900 shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <h4 class="mb-1 text-base text-gray-500 dark:text-gray-400 leading-tight">
-                    Department of Computer Engineering
+                    CineMagic
                 </h4>
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     @yield('header-title')

@@ -10,12 +10,12 @@ use App\Http\Requests\MovieFormRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
-class MovieController extends Controller
+class MoviesController extends Controller
 {
     public function index(): View
     {
-        $movies = Movie::orderBy('title')->paginate(20);
-        return view('movies.index')->with('movies', $movies);
+        $allMovies = Movie::orderBy('title')->paginate(20);
+        return view('movies.index')->with('allMovies', $allMovies);
     }
 
     public function showCase(): View

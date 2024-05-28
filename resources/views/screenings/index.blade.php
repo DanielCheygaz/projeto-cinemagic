@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('header-title', 'List of Movies')
+@section('header-title', 'List of Screenings')
 
 @section('main')
     <div class="flex justify-center">
@@ -8,19 +8,19 @@
                     shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-50">
             <div class="flex items-center gap-4 mb-4">
                 <x-button
-                    href="{{ route('movies.create') }}"
-                    text="Add a movie"
+                    href="{{ route('screenings.create') }}"
+                    text="Add a screening"
                     type="success"/>
             </div>
             <div class="font-base text-sm text-gray-700 dark:text-gray-300">
-                <x-movies.table :movies="$allMovies"
+                <x-screenings.table :screenings="$screenings"
                     :showView="true"
                     :showEdit="true"
                     :showDelete="true"
                     />
             </div>
             <div class="mt-4">
-                {{ $allMovies->links() }}
+                {{ $screenings->links() }}
             </div>
         </div>
     </div>

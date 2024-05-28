@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Movie extends Model
 {
@@ -28,6 +28,25 @@ class Movie extends Model
     public $incrementing = true;
 
     protected $keyType = 'int';
+
+    public function getFileNameAttribute()
+    {
+        return strtoupper(trim($this->poster_filename));
+    }
+
+    public function getImageExistsAttribute()
+    {
+        return Storage::exists("public/posters/{$this->poster_filename}");
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->imageExists) {
+            return asset("storage/posters/{$this->poster_filename}");
+        } else {
+            return asset("storage/photos/_no_poster_1.png");
+        }
+    }
 
     public function genreRef(): BelongsTo{
         return $this->belongsTo(Genre::class,'genre_code');
