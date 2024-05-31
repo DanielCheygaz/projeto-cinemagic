@@ -3,9 +3,7 @@
         <thead>
         <tr class="border-b-2 border-b-gray-400 dark:border-b-gray-500 bg-gray-100 dark:bg-gray-800">
             <th class="px-2 py-2 text-left">Title</th>
-            <th class="px-2 py-2 text-right hidden lg:table-cell">Theater</th>
-            <th class="px-2 py-2 text-right hidden lg:table-cell">Date</th>
-            <th class="px-2 py-2 text-right hidden lg:table-cell">Time</th>
+            <th class="px-2 py-2 text-right hidden lg:table-cell">Genre</th>
             @if($showView)
                 <th></th>
             @endif
@@ -18,28 +16,26 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($screenings as $screening)
+        @foreach ($movies as $movie)
             <tr class="border-b border-b-gray-400 dark:border-b-gray-500">
-                <td class="px-2 py-2 text-left">{{ $screening->movieRef->title }}</td>
-                <td class="px-2 py-2 text-right hidden lg:table-cell">{{ $screening->theater->name}}</td>
-                <td class="px-2 py-2 text-right hidden lg:table-cell">{{ $screening->date }}</td>
-                <td class="px-2 py-2 text-right hidden lg:table-cell">{{ $screening->start_time }}</td>
+                <td class="px-2 py-2 text-left">{{ $movie->title }}</td>
+                <td class="px-2 py-2 text-right hidden lg:table-cell">{{ $movie->genreRef->name}}</td>
                 @if($showView)
                     <td>
                         <x-table.icon-show class="ps-3 px-0.5"
-                        href="{{ route('screenings.show', ['screening' => $screening]) }}"/>
+                        href="{{ route('movies.show', ['movie' => $movie]) }}"/>
                     </td>
                 @endif
                 @if($showEdit)
                     <td>
                         <x-table.icon-edit class="px-0.5"
-                        href="{{ route('screenings.edit', ['screening' => $screening]) }}"/>
+                        href="{{ route('movies.edit', ['movie' => $movie]) }}"/>
                     </td>
                 @endif
                 @if($showDelete)
                     <td>
                         <x-table.icon-delete class="px-0.5"
-                        action="{{ route('screenings.destroy', ['screening' => $screening]) }}"/>
+                        action="{{ route('movies.destroy', ['movie' => $movie]) }}"/>
                     </td>
                 @endif
             </tr>
