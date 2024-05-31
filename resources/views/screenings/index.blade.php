@@ -13,14 +13,11 @@
                     type="success"/>
             </div>
             <div class="font-base text-sm text-gray-700 dark:text-gray-300">
-                <x-screenings.table :screenings="$screenings"
+                <x-screenings.table :movies="$movies"
                     :showView="true"
                     :showEdit="true"
                     :showDelete="true"
                     />
-            </div>
-            <div class="mt-4">
-                {{ $screenings->links() }}
             </div>
         </div>
     </div>

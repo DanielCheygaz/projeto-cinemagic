@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Screening;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MovieFormRequest;
@@ -31,6 +32,14 @@ class MoviesController extends Controller
 
     public function show(Movie $movie): View
     {
-        return view('movies.show')->with('movie', $movie);
+        $screenings = Screening::query()
+            ->with('movieRef')
+            ->where('movie_id',$movie->id)
+            ->whereBetween('date',[date("Y-m-d"), date('Y-m-d', strtotime('+2 weeks'))])
+            ->get();
+
+        //$movies=Movie::whereIntegerInRaw('id',$idMovies)->get();
+
+        return view('movies.show',['movie' => $movie,'screenings' => $screenings]);
     }
 }
