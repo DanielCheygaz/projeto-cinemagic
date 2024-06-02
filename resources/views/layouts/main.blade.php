@@ -24,7 +24,7 @@
                 <div class="relative flex flex-col sm:flex-row px-6 sm:px-0 grow justify-between">
                     <!-- Logo -->
                     <div class="shrink-0 -ms-4">
-                        <a href="#">
+                        <a href="{{ route('movies.index') }}">
                             <div class="h-16 w-40 bg-cover bg-[url('../img/politecnico_h.svg')] dark:bg-[url('../img/politecnico_h_white.svg')]"></div>
                         </a>
                     </div>
@@ -51,7 +51,7 @@
                         <!-- Menu Item: Curricula -->
 
                         <!-- inserir o qeu tá no txt como backup aqui-->
-
+                        <div class="grow"></div>
                         <!-- Menu Item: Cart -->
                         <x-menus.cart
                             href="#"
