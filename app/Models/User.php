@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Contracts\Auth\MustVerifyEmail; 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Storage;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -48,6 +49,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getPhotoFullUrlAttribute()
+    {
+        debug($this->photo_filename);
+
+        if ($this->photo_filename && Storage::exists("public/photos/{$this->photo_filename}")) {
+            return asset("storage/photos/{$this->photo_filename}");
+        } else {
+            return asset("storage/photos/anonymous.png");
+        }
+    }
 
     public function customer(): HasOne{
         return $this->hasOne(Customer::class);
