@@ -37,13 +37,13 @@
                             content="Movies"
                             selectable="1"
                             href="{{ route('movies.index') }}"
-                            selected=""
+                            selected="{{ Route::currentRouteName() == 'movies.index'}}"
                         />
                         <x-menus.menu-item
                             content="Screenings"
                             selectable="1"
                             href="{{ route('screenings.index') }}"
-                            selected=""
+                            selected="{{ Route::currentRouteName() == 'screenings.index'}}"
                         />
 
 
@@ -70,32 +70,32 @@
                                 </div>
                                 {{-- ATENÇÃO - ALTERAR FORMULA DE CALCULO DAS LARGURAS MÁXIMAS QUANDO O MENU FOR ALTERADO --}}
                                 <div class="ps-1 sm:max-w-[calc(100vw-39rem)] md:max-w-[calc(100vw-41rem)] lg:max-w-[calc(100vw-46rem)] xl:max-w-[34rem] truncate">
-                                    {{ Auth::user()->name }} 
+                                    {{ Auth::user()->name }}
                                 </div>
                             </x-slot>
-                            
+
                             <x-menus.submenu-item
                                 content="Profile"
                                 selectable="0"
-                                href="{{ route('profile.edit') }}"/> 
-                            
-                            <form id="form_to_logout_from_menu" method="POST" action="{{ route('logout') }}"  
-                                    class="hidden"> 
-                                @csrf 
-                            </form> 
-                            <a class="px-3 py-4 border-b-2 border-transparent 
-                                        text-sm font-medium leading-5 inline-flex h-auto 
-                                        text-gray-500 dark:text-gray-400 
-                                        hover:text-gray-700 dark:hover:text-gray-300 
-                                        hover:bg-gray-100 dark:hover:bg-gray-800 
-                                        focus:outline-none 
-                                        focus:text-gray-700 dark:focus:text-gray-300 
-                                        focus:bg-gray-100 dark:focus:bg-gray-800" 
-                                    href="#" 
-                                    onclick="event.preventDefault(); 
-                                            document.getElementById('form_to_logout_from_menu').submit();"> 
-                                Log Out 
-                            </a> 
+                                href="{{ route('profile.edit') }}"/>
+
+                            <form id="form_to_logout_from_menu" method="POST" action="{{ route('logout') }}"
+                                    class="hidden">
+                                @csrf
+                            </form>
+                            <a class="px-3 py-4 border-b-2 border-transparent
+                                        text-sm font-medium leading-5 inline-flex h-auto
+                                        text-gray-500 dark:text-gray-400
+                                        hover:text-gray-700 dark:hover:text-gray-300
+                                        hover:bg-gray-100 dark:hover:bg-gray-800
+                                        focus:outline-none
+                                        focus:text-gray-700 dark:focus:text-gray-300
+                                        focus:bg-gray-100 dark:focus:bg-gray-800"
+                                    href="#"
+                                    onclick="event.preventDefault();
+                                            document.getElementById('form_to_logout_from_menu').submit();">
+                                Log Out
+                            </a>
                         </x-menus.submenu>
                         @else
                         <!-- Menu Item: Login -->
