@@ -21,7 +21,7 @@ class MoviesController extends Controller
 
     public function showCase(): View
     {
-        return view('courses.showcase');
+        return view('movies.showcase');
     }
 
     public function create(): View
@@ -29,6 +29,22 @@ class MoviesController extends Controller
         $newMovie = new Movie();
         return view('movies.create')->with('movie', $newMovie);
     }
+
+    public function edit(Movie $movie): View
+    {
+        return view('movies.edit')->with('movie', $movie);
+    }
+
+    public function update(movieFormRequest $request, movie $movie): RedirectResponse
+    {
+        $movie->update($request->validated());
+        $url = route('movies.show', ['movie' => $movie]);
+        $htmlMessage = "movie <a href='$url'><u>{$movie->name}</u></a> ({$movie->abbreviation}) has been updated successfully!";
+        return redirect()->route('movies.index')
+            ->with('alert-type', 'success')
+            ->with('alert-msg', $htmlMessage);
+    }
+    
 
     public function show(Movie $movie): View
     {
