@@ -72,7 +72,7 @@ class ScreeningsController extends Controller
 
     public function create(): View
     {
-        $newScreening = new Screening();
-        return view('screenings.create')->with('screening', $newScreening);
+        $newMovie = new Screening();
+        return view('screenings.create')->with('movie', $newMovie);
     }
 }

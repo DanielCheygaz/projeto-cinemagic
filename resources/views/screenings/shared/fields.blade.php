@@ -8,7 +8,7 @@
             <x-field.input name="year" label="Year" :readonly="$readonly"
                             value="{{ old('year', $movie->year) }}"/>
             <x-field.input name="genre" label="Genre" :readonly="$readonly"
-                            value="{{ old('genre', $movie->genreRef->name) }}"/>
+                            value="{{ old('genre', $movie->genreRef->name ?? '') }}"/>
         </div>
         <x-field.input name="trailer_url" label="Trailer URL" :readonly="$readonly"
                     value="{{ old('trailer_url', $movie->trailer_url) }}"/>
