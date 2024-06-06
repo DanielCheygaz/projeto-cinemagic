@@ -14,7 +14,7 @@ class Image extends Component
     public function __construct(
         public string $name,
         public string $label = '',
-        public string $imageUrl = '',
+        //public string $imageUrl = '',
         public bool $readonly = false,
         public bool $deleteAllow = true,
         public string $deleteTitle = 'Delete',
@@ -27,6 +27,7 @@ class Image extends Component
             $this->width = 'full';
         }
         $this->label = trim($label) ?: $name;
+        //$this->imageUrl = $imageUrl ?? ''; // Garante que imageUrl será uma string
     }
 
     /**

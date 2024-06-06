@@ -12,7 +12,7 @@ class Table extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public object $movies,
+        public object $screenings,
         public bool $showMovie = true,
         public bool $showView = true,
         public bool $showEdit = true,

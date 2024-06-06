@@ -13,7 +13,7 @@
                     type="success"/>
             </div>
             <div class="font-base text-sm text-gray-700 dark:text-gray-300">
-                <x-screenings.table :movies="$movies"
+                <x-screenings.table :screenings="$allscreenings"
                     :showView="true"
                     :showEdit="true"
                     :showDelete="true"
