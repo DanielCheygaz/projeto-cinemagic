@@ -34,6 +34,7 @@ Route::middleware('auth', 'verified')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/', [MoviesController::class, 'index']);
+Route::get('/', [ScreeningsController::class, 'index']);
 
 Route::resource('movies', MoviesController::class);
 Route::resource('screenings', ScreeningsController::class);

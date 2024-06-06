@@ -39,17 +39,17 @@ class ScreeningsController extends Controller
     }
 
     public function index(Request $request): View{
-        $idMovies = Screening::query()
-            ->with('movieRef')
+        $id = Screening::query()
+            ->with('screeningRef')
             ->whereBetween('date',[date("Y-m-d"), date('Y-m-d', strtotime('+2 weeks'))])
-            ->select('movie_id')
+            ->select('id')
             ->distinct()
-            ->pluck('movie_id')
+            ->pluck('id')
             ->toArray();
 
-        $movies=Movie::whereIntegerInRaw('id',$idMovies)->get();
+        $screenings=Screening::whereIntegerInRaw('id',$id)->get();
 
-        return view('screenings.index', compact('movies'));
+        return view('screenings.index', compact('screenings'));
     }
 
     public function showOld(Movie $movie): View
@@ -64,15 +64,15 @@ class ScreeningsController extends Controller
         return view('screenings.show', compact('allScreenings'));
     }
 
-    public function show(Movie $movie): View
+    public function show(Screening $screening): View
     {
-        dd($movie);
-        return view('screenings.show')->with('movie', $movie);
+        dd($screening);
+        return view('screenings.show')->with('movie', $screening);
     }
 
     public function create(): View
     {
-        $newMovie = new Screening();
-        return view('screenings.create')->with('movie', $newMovie);
+        $newScreening = new Screening();
+        return view('screenings.create')->with('screening', $newScreening);
     }
 }
