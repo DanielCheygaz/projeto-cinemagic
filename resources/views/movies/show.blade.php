@@ -33,10 +33,12 @@
                 <div class="mt-6 space-y-4">
                     @include('movies.shared.fields', ['mode' => 'show'])
                 </div>
-
                     @php
                     if(isset($screenings[0]->id)){
-                        print('<div class="mt-6 text-4xl text-gray-900 dark:text-gray-100">Sessions:</div>
+                        print(' <div class="flex flex-col">
+                                    <div class="mt-6 text-4xl text-gray-900 dark:text-gray-100">Sessions:</div>
+                                    <div class="mt-3 ms-4 text-lg text-gray-900 dark:text-gray-300">Theater - '. $screenings[0]->theater->name .'</div>
+                                </div>
                                 <div class="flex flex-row flex-wrap">');
                         $dates = array();
                         foreach ($screenings as $screening) {
@@ -45,10 +47,10 @@
                         $datesSorted = array_unique($dates);
 
                         foreach ($datesSorted as $date) {
-                            print('<div class="flex flex-col flex-start text-center	mt-9 me-6 text-gray-900 dark:text-gray-100">'. date('l', strtotime($date)) . ' - ' . date('d/m', strtotime($date)));
+                            print('<div class="flex flex-col flex-start text-center	mt-7 me-6 text-gray-900 dark:text-gray-100">'. date('l', strtotime($date)) . ' - ' . date('d/m', strtotime($date)));
                             foreach ($screenings as $screening){
                                 if ($date == $screening->date) {
-                                    print('<a class="text-sm mt-5 ms-2 text-indigo-700 dark:text-indigo-200" href="">'. $screening->start_time .'</a>');
+                                    print('<a class="text-sm mt-5 ms-2 text-indigo-700 dark:text-indigo-200" href="">'. $screening->start_time . '</a>');
                                 }
                             }
                             print('</div>');
