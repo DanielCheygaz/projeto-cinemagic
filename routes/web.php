@@ -35,14 +35,8 @@ Route::middleware('auth', 'verified')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/', [MoviesController::class, 'index']);
-<<<<<<< HEAD
-
-Route::resource('movies', MoviesController::class);
-Route::resource('screenings', ScreeningsController::class);
-=======
 
 
 Route::resource('movies', MoviesController::class);
 Route::resource('screenings', ScreeningsController::class);
 Route::resource('theaters', TheatersController::class);
->>>>>>> ramo-digas
