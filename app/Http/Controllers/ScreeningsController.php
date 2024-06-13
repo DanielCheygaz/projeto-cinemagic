@@ -48,8 +48,8 @@ class ScreeningsController extends Controller
             ->toArray();
 
         $screenings=Screening::whereIntegerInRaw('id',$id)->get();
-
-        return view('screenings.index', compact('screenings'));
+        $allScreenings = Screening::orderBy('date')->paginate(20);
+        return view('screenings.index')->with('allScreenings', $allScreenings);
     }
 
     public function showOld(Movie $movie): View
@@ -66,7 +66,6 @@ class ScreeningsController extends Controller
 
     public function show(Screening $screening): View
     {
-        dd($screening);
         return view('screenings.show')->with('movie', $screening);
     }
 

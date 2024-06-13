@@ -32,7 +32,6 @@
                     <!-- Menu Items -->
                     <div id="menu-container" class="grow flex flex-col sm:flex-row items-stretch
                     invisible h-0 sm:visible sm:h-auto">
-                        <!-- Menu Item: Courses -->
                         <x-menus.menu-item
                             content="Movies"
                             selectable="1"
@@ -45,8 +44,13 @@
                             href="{{ route('screenings.index') }}"
                             selected="{{ Route::currentRouteName() == 'screenings.index'}}"
                         />
-
-
+                        <x-menus.menu-item
+                            content="Theaters"
+                            selectable="1"
+                            href="{{ route('theaters.index') }}"
+                            selected="{{ Route::currentRouteName() == 'theaters.index'}}"
+                        />    
+                    
 
                         <!-- Menu Item: Curricula -->
 

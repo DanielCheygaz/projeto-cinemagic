@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\ScreeningsController;
+use App\Http\Controllers\TheatersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,8 @@ Route::middleware('auth', 'verified')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/', [MoviesController::class, 'index']);
-Route::get('/', [ScreeningsController::class, 'index']);
+
 
 Route::resource('movies', MoviesController::class);
 Route::resource('screenings', ScreeningsController::class);
+Route::resource('theaters', TheatersController::class);
