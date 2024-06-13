@@ -17,19 +17,19 @@ use App\Http\Controllers\TheatersController;
 |
 */
 
-/* ----- PUBLIC ROUTES ----- */ 
-Route::view('/', 'home')->name('home'); 
+/* ----- PUBLIC ROUTES ----- */
+Route::view('/', 'home')->name('home');
 
-/* ----- Non-Verified users ----- */ 
+/* ----- Non-Verified users ----- */
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-/* ----- Verified users ----- */ 
-Route::middleware('auth', 'verified')->group(function () { 
-    Route::view('/dashboard', 'dashboard')->name('dashboard'); 
+/* ----- Verified users ----- */
+Route::middleware('auth', 'verified')->group(function () {
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
 });
 
 require __DIR__.'/auth.php';

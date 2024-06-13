@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Screening;
 use App\Models\Movie;
+use App\Models\Theater;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
 use Illuminate\Support\Facades\DB;
+
+use function Laravel\Prompts\select;
 
 class ScreeningsController extends Controller
 {
@@ -39,17 +42,16 @@ class ScreeningsController extends Controller
     }
 
     public function index(Request $request): View{
-        $id = Screening::query()
-            ->with('screeningRef')
+            $idMovies = Screening::query()
             ->whereBetween('date',[date("Y-m-d"), date('Y-m-d', strtotime('+2 weeks'))])
-            ->select('id')
+            ->select('movie_id')
             ->distinct()
-            ->pluck('id')
+            ->pluck('movie_id')
             ->toArray();
 
-        $screenings=Screening::whereIntegerInRaw('id',$id)->get();
-        $allScreenings = Screening::orderBy('date')->paginate(20);
-        return view('screenings.index')->with('allScreenings', $allScreenings);
+        $screenings=Movie::whereIntegerInRaw('id',$idMovies)->get();
+
+        return view('screenings.index', compact('screenings'));
     }
 
     public function showOld(Movie $movie): View
@@ -64,9 +66,9 @@ class ScreeningsController extends Controller
         return view('screenings.show', compact('allScreenings'));
     }
 
-    public function show(Screening $screening): View
+    public function show(Movie $movie): View
     {
-        return view('screenings.show')->with('movie', $screening);
+        return view('screenings.show')->with('movie', $movie);
     }
 
     public function create(): View

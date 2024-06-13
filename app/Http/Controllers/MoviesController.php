@@ -44,15 +44,22 @@ class MoviesController extends Controller
             ->with('alert-type', 'success')
             ->with('alert-msg', $htmlMessage);
     }
-    
+
 
     public function show(Movie $movie): View
     {
+        /* = Screening::query()
+        ->with('movieRef')
+        ->where('movie_id',$movie->id)
+        ->whereBetween('date',[date("Y-m-d"), date('Y-m-d', strtotime('+2 weeks'))])
+        ->get();*/
+
         $screenings = Screening::query()
             ->with('movieRef')
-            ->where('movie_id',$movie->id)
+            ->where('movie_id', $movie->id)
             ->whereBetween('date',[date("Y-m-d"), date('Y-m-d', strtotime('+2 weeks'))])
             ->get();
+
 
         //$movies=Movie::whereIntegerInRaw('id',$idMovies)->get();
 

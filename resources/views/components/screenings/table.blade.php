@@ -3,8 +3,8 @@
         <thead>
         <tr class="border-b-2 border-b-gray-400 dark:border-b-gray-500 bg-gray-100 dark:bg-gray-800">
             <th class="px-2 py-2 text-left">Title</th>
-            <th class="px-2 py-2 text-left">Genre</th>
-
+            <th class="px-2 py-2 hidden text-right lg:table-cell">Genre</th>
+            <th class="px-2 py-2 hidden text-right lg:table-cell">Year</th>
             @if($showView)
                 <th></th>
             @endif
@@ -19,12 +19,13 @@
         <tbody>
         @foreach ($screenings as $screening)
             <tr class="border-b border-b-gray-400 dark:border-b-gray-500">
-                <td class="px-2 py-2 text-left">{{ $screening->movieRef->title }}</td>
-                <td class="px-2 py-2 text-left">{{ $screening->movieRef->genreRef->name }}</td>
+                <td class="px-2 py-2 text-left">{{ $screening->title }}</td>
+                <td class="px-2 py-2 hidden text-right lg:table-cell">{{ $screening->genreRef->name }}</td>
+                <td class="px-2 py-2 hidden text-right lg:table-cell">{{ $screening->year }}</td>
                 @if($showView)
                     <td>
                         <x-table.icon-show class="ps-3 px-0.5"
-                        href="{{ route('screenings.show', ['screening' => $screening]) }}"/>
+                        href="{{ route('movies.show', ['movie' => $screening]) }}"/>
                     </td>
                 @endif
                 @if($showEdit)
