@@ -53,6 +53,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('movies', MoviesController::class);
     Route::resource('screenings', ScreeningsController::class);
     Route::resource('theaters', TheatersController::class);
+    Route::resource('users', UsersController::class);
+
 
 });
 
@@ -63,6 +65,5 @@ Route::get('/', [MoviesController::class, 'index']);
 
 Route::resource('movies', MoviesController::class)->only(['index', 'show']);
 Route::resource('screenings', ScreeningsController::class)->only(['index', 'show']);    
-Route::resource('users', UsersController::class);
 
 Route::patch('/users/{user}', [UsersController::class, 'block'])->name('users.block');
