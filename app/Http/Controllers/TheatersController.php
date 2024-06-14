@@ -30,7 +30,7 @@ class TheatersController extends Controller
         return view('theaters.edit')->with('theater', $theater);
     }
 
-    
+
     public function update(TheaterFormRequest $request, Theater $theater): RedirectResponse
     {
         $theater->update($request->validated());
@@ -48,13 +48,16 @@ class TheatersController extends Controller
     public function destroy(Theater $theater): RedirectResponse
     {
         $theaterToDelete= Theater::find($theater->id);
-        dd($theaterToDelete); 
 
-        // Make sure you've got the Page model
         if($theaterToDelete) {
-            $theaterToDelete->deleted_at= Carbon::now();
+            $theaterToDelete->deleted_at= date("Y-m-d H:i:s");
             $theaterToDelete->save();
         }
+
+        $htmlMessage = "theater <u>{$theater->name}</u> has been updated successfully!";
+        return redirect()->route('theaters.index')
+            ->with('alert-type', 'success')
+            ->with('alert-msg', $htmlMessage);
     }
 
 }
