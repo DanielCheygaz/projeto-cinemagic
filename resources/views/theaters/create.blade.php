@@ -9,7 +9,7 @@
                     <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                         New Theater
                     </h2>
-                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-300  mb-6">
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-300 mb-6">
                         Click on "Save" button to store the information.
                     </p>
                 </header>
@@ -18,6 +18,12 @@
                     @csrf
                     <div class="mt-6 space-y-4">
                         @include('theaters.shared.fields', ['mode' => 'create'])
+
+                        <!-- Add fields for rows and seats per row -->
+                        <div class="flex space-x-4">
+                            <x-field.input name="rows" label="Number of Rows" value="{{ old('rows') }}" />
+                            <x-field.input name="seats_per_row" label="Seats per Row" value="{{ old('seats_per_row') }}" />
+                        </div>
                     </div>
                     <div class="flex mt-6">
                         <x-button element="submit" type="dark" text="Save new theater" class="uppercase"/>

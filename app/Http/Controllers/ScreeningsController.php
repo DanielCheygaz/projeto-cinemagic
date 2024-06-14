@@ -50,6 +50,7 @@ class ScreeningsController extends Controller
             ->toArray();
 
         $screenings=Movie::whereIntegerInRaw('id',$idMovies)->get();
+        //$screenings = Screening::orderBy('date')->paginate(20);
 
         return view('screenings.index', compact('screenings'));
     }

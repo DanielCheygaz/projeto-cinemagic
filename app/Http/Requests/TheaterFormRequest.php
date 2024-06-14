@@ -25,6 +25,8 @@ class TheaterFormRequest extends FormRequest
             'name' => 'required|string|max:255',
             'photo_filename' => 'sometimes|string|max:255',
             'deleted_at' => 'sometimes|timestamp',
+            'rows' => 'required|integer|min:1',
+            'seats_per_row' => 'required|integer|min:1',
         ];
     }
 }

@@ -44,12 +44,14 @@
                             href="{{ route('screenings.index') }}"
                             selected="{{ Route::currentRouteName() == 'screenings.index'}}"
                         />
+                        @auth
                         <x-menus.menu-item
                             content="Theaters"
                             selectable="1"
                             href="{{ route('theaters.index') }}"
                             selected="{{ Route::currentRouteName() == 'theaters.index'}}"
-                        />    
+                        />  
+                        @endauth  
                     
 
                         <!-- Menu Item: Curricula -->
