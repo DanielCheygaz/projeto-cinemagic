@@ -11,8 +11,8 @@
     </div>
     <div class="pb-6">
         <x-field.image
-            name="image_file"
-            label="Theater Image"
+            name="photo_filename"
+            label="Poster Image"
             width="md"
             :readonly="$readonly"
             deleteTitle="Delete Image"

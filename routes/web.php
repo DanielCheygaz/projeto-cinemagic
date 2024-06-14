@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Movie;
+use App\Models\Screening;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\ScreeningsController;
@@ -21,6 +23,16 @@ use App\Http\Controllers\UsersController;
 /* ----- PUBLIC ROUTES ----- */
 Route::view('/', 'home')->name('home');
 
+Route::get('movies/showcase', [MoviesController::class, 'showcase'])
+    ->name('movies.showcase')
+    ->can('viewShowCase', Movie::class);
+
+Route::get('screenings/showcase', [ScreeningsController::class, 'showcase'])
+    ->name('screenings.showcase')
+    ->can('viewShowCase', Screening::class);
+
+
+
 /* ----- Non-Verified users ----- */
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -31,6 +43,19 @@ Route::middleware('auth')->group(function () {
 /* ----- Verified users ----- */
 Route::middleware('auth', 'verified')->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
+
+    Route::delete('movies/{movie}/image', [MoviesController::class, 'destroyImage'])
+    ->name('movies.image.destroy')
+    ->can('update', Movie::class);
+
+
+
+    Route::resource('movies', MoviesController::class);
+    Route::resource('screenings', ScreeningsController::class);
+    Route::resource('theaters', TheatersController::class);
+    Route::resource('users', UsersController::class);
+
+
 });
 
 require __DIR__.'/auth.php';
@@ -38,9 +63,7 @@ require __DIR__.'/auth.php';
 Route::get('/', [MoviesController::class, 'index']);
 
 
-Route::resource('movies', MoviesController::class);
-Route::resource('screenings', ScreeningsController::class);
-Route::resource('theaters', TheatersController::class);
-Route::resource('users', UsersController::class);
+Route::resource('movies', MoviesController::class)->only(['index', 'show']);
+Route::resource('screenings', ScreeningsController::class)->only(['index', 'show']);    
 
 Route::patch('/users/{user}', [UsersController::class, 'block'])->name('users.block');

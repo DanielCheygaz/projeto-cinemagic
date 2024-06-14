@@ -30,16 +30,20 @@
                     </td>
                 @endif
                 @if($showEdit)
+                    @can('update', $movie)
                     <td>
                         <x-table.icon-edit class="px-0.5"
                         href="{{ route('movies.edit', ['movie' => $movie]) }}"/>
                     </td>
+                    @endcan
                 @endif
                 @if($showDelete)
+                    @can('delete', $movie)
                     <td>
                         <x-table.icon-delete class="px-0.5"
                         action="{{ route('movies.destroy', ['movie' => $movie]) }}"/>
                     </td>
+                    @endcan
                 @endif
             </tr>
         @endforeach

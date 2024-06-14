@@ -44,20 +44,24 @@
                             href="{{ route('screenings.index') }}"
                             selected="{{ Route::currentRouteName() == 'screenings.index'}}"
                         />
+                        @auth
+                        @can('viewAny', App\Models\Theater::class)
                         <x-menus.menu-item
                             content="Theaters"
                             selectable="1"
                             href="{{ route('theaters.index') }}"
                             selected="{{ Route::currentRouteName() == 'theaters.index'}}"
                         />
-
+                        @endcan
+                      
                         <x-menus.menu-item
                             content="Users"
                             selectable="1"
                             href="{{ route('users.index') }}"
                             selected="{{ Route::currentRouteName() == 'users.index'}}"
                         />
-
+                        
+                        @endauth
 
                         <!-- Menu Item: Curricula -->
 
