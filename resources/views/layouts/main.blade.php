@@ -49,8 +49,15 @@
                             selectable="1"
                             href="{{ route('theaters.index') }}"
                             selected="{{ Route::currentRouteName() == 'theaters.index'}}"
-                        />    
-                    
+                        />
+
+                        <x-menus.menu-item
+                            content="Users"
+                            selectable="1"
+                            href="{{ route('users.index') }}"
+                            selected="{{ Route::currentRouteName() == 'users.index'}}"
+                        />
+
 
                         <!-- Menu Item: Curricula -->
 

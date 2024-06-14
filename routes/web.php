@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\ScreeningsController;
 use App\Http\Controllers\TheatersController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,6 @@ Route::get('/', [MoviesController::class, 'index']);
 Route::resource('movies', MoviesController::class);
 Route::resource('screenings', ScreeningsController::class);
 Route::resource('theaters', TheatersController::class);
+Route::resource('users', UsersController::class);
+
+Route::patch('/users/{user}', [UsersController::class, 'block'])->name('users.block');

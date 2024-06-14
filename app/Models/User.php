@@ -61,6 +61,16 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
+    public function getUserTypeAttribute(){
+        return match ($this->type) {
+            'A'    => "Admin",
+            'E'      => 'Employee',
+            'C'      => 'Customer',
+            default     => ''
+        };
+    }
+
+
     public function customer(): HasOne{
         return $this->hasOne(Customer::class);
     }
