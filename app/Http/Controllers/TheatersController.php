@@ -54,7 +54,7 @@ class TheatersController extends Controller
             $theaterToDelete->save();
         }
 
-        $htmlMessage = "theater <u>{$theater->name}</u> has been updated successfully!";
+        $htmlMessage = "theater <u>{$theater->name}</u> has been deleted successfully!";
         return redirect()->route('theaters.index')
             ->with('alert-type', 'success')
             ->with('alert-msg', $htmlMessage);

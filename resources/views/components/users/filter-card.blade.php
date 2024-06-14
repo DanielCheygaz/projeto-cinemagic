@@ -3,13 +3,13 @@
         <div class="flex justify-between space-x-3">
             <div class="grow flex flex-col space-y-2">
                 <div>
-                    <x-field.input name="movie" label="Movies" class="grow"
-                        value="{{ $movie }}"/>
+                    <x-field.select name="userType" label="User Type"
+                        value="{{ $userType }}"
+                        :options="$usertypes"/>
                 </div>
                 <div>
-                    <x-field.select name="theater" label="Theater"
-                        value="{{ $theater }}"
-                        :options="$listTheaters"/>
+                    <x-field.input name="name" label="Name" class="grow"
+                        value="{{ $name }}"/>
                 </div>
             </div>
             <div class="grow-0 flex flex-col space-y-3 justify-start">
