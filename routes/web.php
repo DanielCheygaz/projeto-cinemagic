@@ -8,6 +8,11 @@ use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\ScreeningsController;
 use App\Http\Controllers\TheatersController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\CartController;
+use App\Models\Theater;
+use App\Http\Controllers\StatisticsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -48,17 +53,44 @@ Route::middleware('auth', 'verified')->group(function () {
     ->name('movies.image.destroy')
     ->can('update', Movie::class);
 
+    
+    Route::get('theaters/my', [TheatersController::class, 'theaters'])
+        ->name('theaters.my')
+        ->can('view', Theater::class);
 
+    Route::post('cart', [CartController::class, 'confirm'])
+        ->name('cart.confirm')
+        ->can('confirm-cart');
 
     Route::resource('movies', MoviesController::class);
     Route::resource('screenings', ScreeningsController::class);
     Route::resource('theaters', TheatersController::class);
     Route::resource('users', UsersController::class);
+    Route::resource('tickets', TicketsController::class);
 
+    Route::get('statistics', [StatisticsController::class, 'index'])
+        ->name('statistics.index')
+        ->can('view', StatisticsController::class);
 
 });
 
-require __DIR__.'/auth.php';
+/* ----- OTHER PUBLIC ROUTES ----- */
+
+// Use Cart routes should be accessible to the public */
+Route::middleware('can:use-cart')->group(function () {
+    // Add a ticket to the cart:
+    //Route::post('cart/add/{movie}/{theater}/{date}', [CartController::class, 'addToCart'])
+       // ->name('cart.add');
+    Route::get('/cart/add/{movie}/{theater}/{date}', [CartController::class, 'addToCart'])->name('cart.add');
+    // Remove a ticket from the cart:
+    Route::delete('cart/{ticket}', [CartController::class, 'removeFromCart'])
+        ->name('cart.remove');
+    // Show the cart:
+    Route::get('cart', [CartController::class, 'show'])->name('cart.show');
+    // Clear the cart:
+    Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
+});
+
 
 Route::get('/', [MoviesController::class, 'index']);
 
@@ -67,3 +99,5 @@ Route::resource('movies', MoviesController::class)->only(['index', 'show']);
 Route::resource('screenings', ScreeningsController::class)->only(['index', 'show']);    
 
 Route::patch('/users/{user}', [UsersController::class, 'block'])->name('users.block');
+
+require __DIR__.'/auth.php';

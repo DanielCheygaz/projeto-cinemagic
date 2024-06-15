@@ -20,14 +20,22 @@ class TheatersController extends Controller
       return view('theaters.index')->with('allTheaters', $allTheaters);
     }
 
+    public function __construct()
+    {
+        $this->authorizeResource(Theater::class, 'theater');
+    }
     public function create(): View
     {
+        $this->authorize('create', Theater::class);
+
         $newTheater = new Theater();
         return view('theaters.create')->with('theater', $newTheater);
     }
 
     public function store(TheaterFormRequest $request): RedirectResponse
     {
+        $this->authorize('create', Theater::class);
+
         $theater = Theater::create($request->validated());
 
         $rows = $request->input('rows');

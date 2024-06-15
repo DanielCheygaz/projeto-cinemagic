@@ -18,7 +18,7 @@ class CustomerPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->type == 'E' || $user->type == 'A';
+        return $user->admin || $user->type == 'A';
     }
 
     public function viewMy(User $user): bool

@@ -53,26 +53,33 @@
                             selected="{{ Route::currentRouteName() == 'theaters.index'}}"
                         />
                         @endcan
-                      
+                        @can('viewAny', App\Models\Customer::class)
                         <x-menus.menu-item
                             content="Users"
                             selectable="1"
                             href="{{ route('users.index') }}"
                             selected="{{ Route::currentRouteName() == 'users.index'}}"
                         />
-                        
+                        <x-menus.menu-item
+                            content="Statistics"
+                            selectable="1"
+                            href="{{ route('statistics.index') }}"
+                            selected="{{ Route::currentRouteName() == 'statistics.index'}}"
+                        />
+                        @endcan
                         @endauth
 
-                        <!-- Menu Item: Curricula -->
-
-                        <!-- inserir o qeu tá no txt como backup aqui-->
                         <div class="grow"></div>
                         <!-- Menu Item: Cart -->
-                        <x-menus.cart
-                            href="#"
-                            selectable="0"
-                            selected="1"
-                            total="2"/>
+                        @if (session()->has('cart'))
+                            @can('use-cart')
+                            <x-menus.cart
+                                :href="route('cart.show')"
+                                selectable="1"
+                                selected="{{ Route::currentRouteName() == 'cart.show'}}"
+                                :total="session('cart')->count()"/>
+                            @endcan
+                        @endif
 
                         @auth
                         <x-menus.submenu
