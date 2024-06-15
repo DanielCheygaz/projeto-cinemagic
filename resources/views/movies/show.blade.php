@@ -56,7 +56,7 @@
                             print('<div class="flex flex-col flex-start text-center	mt-7 me-6 text-gray-900 dark:text-gray-100">'. date('l', strtotime($date)) . ' - ' . date('d/m', strtotime($date)));
                             foreach ($screenings as $screening){
                                 if ($date == $screening->date) {
-                                    print('<a class="text-sm mt-5 ms-2 text-indigo-700 dark:text-indigo-200" href="">'. $screening->start_time . '</a>');
+                                    print('<a class="text-sm mt-5 ms-2 text-indigo-700 dark:text-indigo-200" href="/cart/add/'. $movie->id .'/'. $screening->theater->id .'/'. $date .'">'. $screening->start_time . '</a>');
                                 }
                             }
                             print('</div>');

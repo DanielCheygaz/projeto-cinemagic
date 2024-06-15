@@ -65,6 +65,11 @@ class UsersController extends Controller
             ->with('alert-msg', $htmlMessage);
     }
 
+    public function edit(User $user): View
+    {
+        return view('users.edit')->with('user', $user);
+    }
+
     public function block(User $user) : RedirectResponse {
         $userToBlock= User::find($user->id);
 

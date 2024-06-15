@@ -9,7 +9,7 @@ class TheaterPolicy
 {
     public function viewAny(?User $user): bool
     {
-        return true;
+        return $user->admin || $user->type == 'A';
     }
 
     public function view(?User $user, Theater $theater): bool
@@ -20,7 +20,7 @@ class TheaterPolicy
     public function create(User $user): bool
     {
         return $user->admin || $user->type == 'A';
-    }
+    }   
 
     public function update(User $user, Theater $theater):bool
     {
