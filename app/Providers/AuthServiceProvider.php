@@ -16,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
         Cart::class => CartPolicy::class,
         Theater::class => TheaterPolicy::class,
         Statistics::class => StatisticsPolicy::class,
+        Movie::class => MoviePolicy::class,
         
 
     ];

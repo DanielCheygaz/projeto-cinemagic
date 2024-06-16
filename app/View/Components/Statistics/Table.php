@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Theaters;
+namespace App\View\Components\Statistics;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -12,10 +12,7 @@ class Table extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public object $theaters,
-        public bool $showView = true,
-        public bool $showEdit = true,
-        public bool $showDelete = true,
+        public object $statistics,
     )
     {
         //
@@ -26,6 +23,6 @@ class Table extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.theaters.table');
+        return view('components.statistics.table');
     }
 }

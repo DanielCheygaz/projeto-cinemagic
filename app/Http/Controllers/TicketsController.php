@@ -52,32 +52,39 @@ class TicketsController extends Controller
         return view('tickets.show', compact('ticket'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ticket $ticket)
+    public function validateTicket(Request $request)
     {
-        return view('tickets.edit', compact('ticket'));
+        $ticketId = $request->input('ticket_id');
+        $qrcodeUrl = $request->input('qrcode_url');
+
+        // Logic to retrieve ticket details based on QR code URL or ticket ID
+        if ($qrcodeUrl) {
+            $ticket = Ticket::where('qrcode_url', $qrcodeUrl)->first();
+        } elseif ($ticketId) {
+            $ticket = Ticket::find($ticketId);
+        } else {
+            return redirect()->back()->with('error', 'Please provide a ticket ID or QR code URL.');
+        }
+
+        if (!$ticket) {
+            return redirect()->back()->with('error', 'Ticket not found or invalid.');
+        }
+
+        // Check if the ticket is associated with the correct screening session
+        if (!$this->isValidForScreening($ticket)) {
+            return redirect()->back()->with('error', 'Ticket is not valid for this screening session.');
+        }
+
+        // Display ticket details to the employee
+        return view('tickets.validate', ['ticket' => $ticket]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Ticket $ticket)
+    protected function isValidForScreening(Ticket $ticket)
     {
-        $request->validate([
-            'screening_id' => 'required|integer|exists:screenings,id',
-            'seat_id' => 'required|integer|exists:seats,id',
-            'purchase_id' => 'required|integer|exists:purchases,id',
-            'price' => 'required|numeric',
-            'qrcode_url' => 'required|string',
-            'status' => 'required|string'
-        ]);
-
-        $ticket->update($request->all());
-
-        return redirect()->route('tickets.index')
-            ->with('success', 'Ticket updated successfully.');
+        // Implement your logic to validate if the ticket is for the correct screening session
+        // Example: Check screening date, movie, theater, etc.
+        // For demonstration, assume the ticket is always valid for now
+        return true;
     }
 
     /**

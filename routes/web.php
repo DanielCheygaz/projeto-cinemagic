@@ -12,7 +12,7 @@ use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\CartController;
 use App\Models\Theater;
 use App\Http\Controllers\StatisticsController;
-
+use App\Http\Controllers\ValidationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,9 +68,14 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::resource('users', UsersController::class);
     Route::resource('tickets', TicketsController::class);
 
-    Route::get('statistics', [StatisticsController::class, 'index'])
-        ->name('statistics.index')
-        ->can('view', StatisticsController::class);
+    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+    Route::get('/statistics/data', [StatisticsController::class, 'data'])->name('statistics.data');
+
+    Route::get('/validation', [ValidationsController::class, 'index'])->name('validation.index');
+
+    //Route::post('/tickets/validate', [TicketController::class, 'validateTicket'])->name('tickets.validate');
+    //Route::get('/tickets/invalidate/{ticket}', [TicketController::class, 'invalidate'])->name('tickets.invalidate');
+    //Route::get('/tickets/grant-access/{ticket}', [TicketController::class, 'grantAccess'])->name('tickets.grantAccess');
 
 });
 

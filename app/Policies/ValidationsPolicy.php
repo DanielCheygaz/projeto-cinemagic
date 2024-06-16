@@ -4,14 +4,14 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class StatisticsPolicy
+class ValidationsPolicy
 {
     use HandlesAuthorization;
 
     public function view(User $user): bool
     {
-        return $user->admin || $user->type == 'A';
+        return $user->type == 'E';
     }
 
-    
+
 }
