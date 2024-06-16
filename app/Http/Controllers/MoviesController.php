@@ -30,6 +30,16 @@ class MoviesController extends Controller
         return view('movies.create')->with('movie', $newMovie);
     }
 
+    public function store(MovieFormRequest $request): RedirectResponse
+    {
+        $newMovie = Movie::create($request->validated());
+        $url = route('movies.show', ['movie' => $newMovie]);
+        $htmlMessage = "Movie <a href='$url'><u>{$newMovie->name}</u></a> ({$newMovie}) has been created successfully!";
+        return redirect()->route('movies.index')
+            ->with('alert-type', 'success')
+            ->with('alert-msg', $htmlMessage);
+    }
+
     public function edit(Movie $movie): View
     {
         return view('movies.edit')->with('movie', $movie);

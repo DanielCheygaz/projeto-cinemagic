@@ -67,6 +67,14 @@
                             selected="{{ Route::currentRouteName() == 'statistics.index'}}"
                         />
                         @endcan
+                      
+                        <x-menus.menu-item
+                            content="Validation"
+                            selectable="1"
+                            href="{{ route('validation.index') }}"
+                            selected="{{ Route::currentRouteName() == 'validation.index'}}"
+                        />
+                        
                         @endauth
 
                         <div class="grow"></div>

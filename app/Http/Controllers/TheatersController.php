@@ -12,22 +12,21 @@ use App\Models\Seat;
 
 
 
+
 class TheatersController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Theater::class);
+    }
     public function index(): View
     {
       $allTheaters = Theater::orderBy('name')->whereNull('deleted_at')->paginate(20);
       return view('theaters.index')->with('allTheaters', $allTheaters);
     }
 
-    public function __construct()
-    {
-        $this->authorizeResource(Theater::class, 'theater');
-    }
     public function create(): View
     {
-        $this->authorize('create', Theater::class);
-
         $newTheater = new Theater();
         return view('theaters.create')->with('theater', $newTheater);
     }
