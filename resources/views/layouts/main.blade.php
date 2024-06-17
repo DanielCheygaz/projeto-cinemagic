@@ -33,13 +33,13 @@
                     <div id="menu-container" class="grow flex flex-col sm:flex-row items-stretch
                     invisible h-0 sm:visible sm:h-auto">
                         <x-menus.menu-item
-                            content="Movies"
+                            content="All Movies"
                             selectable="1"
                             href="{{ route('movies.index') }}"
                             selected="{{ Route::currentRouteName() == 'movies.index'}}"
                         />
                         <x-menus.menu-item
-                            content="Screenings"
+                            content="Movies On Show"
                             selectable="1"
                             href="{{ route('screenings.index') }}"
                             selected="{{ Route::currentRouteName() == 'screenings.index'}}"
@@ -67,14 +67,14 @@
                             selected="{{ Route::currentRouteName() == 'statistics.index'}}"
                         />
                         @endcan
-                      
+
                         <x-menus.menu-item
                             content="Validation"
                             selectable="1"
                             href="{{ route('validation.index') }}"
                             selected="{{ Route::currentRouteName() == 'validation.index'}}"
                         />
-                        
+
                         @endauth
 
                         <div class="grow"></div>

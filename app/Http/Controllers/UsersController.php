@@ -71,14 +71,21 @@ class UsersController extends Controller
     }
 
     public function block(User $user) : RedirectResponse {
-        $userToBlock= User::find($user->id);
+        $userToBlock = User::find($user->id);
+        $blockedMsg = '';
 
         if($userToBlock) {
-            $userToBlock->blocked = 1;
+            if(!$userToBlock->blocked){
+                $userToBlock->blocked = 1;
+                $blockedMsg = 'blocked';
+            }else{
+                $userToBlock->blocked = 0;
+                $blockedMsg = 'unblocked';
+            }
             $userToBlock->save();
         }
 
-        $htmlMessage = "User <u>{$user->name}</u> has been blocked successfully!";
+        $htmlMessage = 'User <u>'. $user->name.'</u> has been ' . $blockedMsg . ' successfully!';
         return redirect()->route('users.index')
             ->with('alert-type', 'success')
             ->with('alert-msg', $htmlMessage);

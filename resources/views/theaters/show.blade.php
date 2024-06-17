@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('header-title', $theater->name)
+@section('header-title', 'Theater: ' . $theater->name)
 
 @section('main')
 <div class="flex flex-col space-y-6">
@@ -27,33 +27,29 @@
                 </div>
                 <header>
                     <h2 class="text-2xl font-medium text-gray-900 dark:text-gray-100">
-                        "{{ $theater->name }}"
+                        {{ $theater->name }}
                     </h2>
                 </header>
                 <div class="mt-6 space-y-4">
-                    <img src="{{ $theater->imageUrl }}" alt="{{ $theater->name }} Poster" class="w-full h-auto">
-
                     @include('theaters.shared.fields', ['mode' => 'show'])
 
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100 mt-6">Seats</h3>
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100 mt-60">Seats</h3>
                     <div class="mt-4">
                         @if ($theater->seat->isEmpty())
                             <p>No seats available for this theater.</p>
                         @else
-                            <table class="min-w-full leading-normal">
+                            <table class="min-w-full leading-normal text-gray-900 dark:text-gray-100">
                                 <thead>
-                                    <tr>
-                                        <th>Row</th>
-                                        <th>Seat Number</th>
+                                    <tr class="text-left">
+                                        <th>Rows</th>
+                                        <th>Seat Numbers</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($theater->seat as $seat)
-                                        <tr>
-                                            <td>{{ $seat->row }}</td>
-                                            <td>{{ $seat->seat_number }}</td>
-                                        </tr>
-                                    @endforeach
+                                    <tr>
+                                        <td>{{ reset($rows) }} - {{ end($rows)}}</td>
+                                        <td>{{ reset($seatNumbers) }} - {{ end($seatNumbers) }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         @endif
