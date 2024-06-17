@@ -84,9 +84,7 @@ Route::middleware('auth', 'verified')->group(function () {
 // Use Cart routes should be accessible to the public */
 Route::middleware('can:use-cart')->group(function () {
     // Add a ticket to the cart:
-    //Route::post('cart/add/{movie}/{theater}/{date}', [CartController::class, 'addToCart'])
-       // ->name('cart.add');
-    Route::get('/cart/add/{movie}/{theater}/{date}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('cart/{ticket}', [CartController::class, 'addToCart'])->name('cart.add');
     // Remove a ticket from the cart:
     Route::delete('cart/{ticket}', [CartController::class, 'removeFromCart'])
         ->name('cart.remove');
@@ -94,6 +92,8 @@ Route::middleware('can:use-cart')->group(function () {
     Route::get('cart', [CartController::class, 'show'])->name('cart.show');
     // Clear the cart:
     Route::delete('cart', [CartController::class, 'destroy'])->name('cart.destroy');
+    // Confirm the cart:
+    Route::post('cart/confirm', [CartController::class, 'confirm'])->name('cart.confirm');
 });
 
 

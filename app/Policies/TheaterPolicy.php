@@ -7,12 +7,20 @@ use App\Models\Theater;
 
 class TheaterPolicy
 {
-    public function viewAny(?User $user): bool
+    public function before(?User $user, string $ability): bool|null
+    {
+        if ($user?->admin) {
+            return true;
+        }
+        return null;
+    }
+
+    public function viewAny(User $user): bool
     {
         return $user->admin || $user->type == 'A';
     }
 
-    public function view(?User $user, Theater $theater): bool
+    public function view(User $user, Theater $theater): bool
     {
         return $user->admin || $user->type == 'A';
     }

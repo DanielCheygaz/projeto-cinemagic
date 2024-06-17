@@ -11,10 +11,20 @@ use App\Http\Requests\MovieFormRequest;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class MoviesController extends Controller
+class MoviesController extends \Illuminate\Routing\Controller
 {
+
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Movie::class);
+    }
+
     public function indexOld(): View
+
     {
         $allMovies = Movie::orderBy('title')->paginate(20);
         return view('movies.index')->with('allMovies', $allMovies);
@@ -47,6 +57,7 @@ class MoviesController extends Controller
 
     public function create(): View
     {
+    
         $newMovie = new Movie();
         return view('movies.create')->with('movie', $newMovie);
     }

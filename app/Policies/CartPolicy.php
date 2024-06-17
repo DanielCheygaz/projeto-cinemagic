@@ -15,4 +15,16 @@ class CartPolicy
         return $user->type == 'C' || $user->type == null;
     }
 
+    public function create(User $user): bool
+    {
+        return $user->type == 'C' || $user->type == null;
+    }
+
+    public function update(User $user, Ticket $ticket): bool
+    {
+        return $user->type == 'C' || $user->type == null;
+    }
+
+    
+
 }

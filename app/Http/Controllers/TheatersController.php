@@ -8,12 +8,15 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TheaterFormRequest;
 use App\Models\Seat;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Carbon\Carbon;
 
 
 
-class TheatersController extends Controller
+
+class TheatersController extends  \Illuminate\Routing\Controller
 {
+    use AuthorizesRequests;
     public function __construct()
     {
         $this->authorizeResource(Theater::class);
@@ -32,7 +35,7 @@ class TheatersController extends Controller
 
     public function store(TheaterFormRequest $request): RedirectResponse
     {
-        $this->authorize('create', Theater::class);
+        //$this->authorize('create', Theater::class);
 
         $theater = Theater::create($request->validated());
 
@@ -42,6 +45,8 @@ class TheatersController extends Controller
         // Create new seats
         $this->createSeats($theater, $rows, $seatsPerRow);
 
+        $url = route('thaters.show', ['theater' => $theater]);
+        $htmlMessage = "Theater <a href='$url'><u>{$theater->name}</u></a>) has been created successfully!";
         return redirect()->route('theaters.index')
             ->with('alert-type', 'success')
             ->with('alert-msg', "Theater <u>{$theater->name}</u> has been created successfully!");

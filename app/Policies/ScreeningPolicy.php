@@ -9,6 +9,9 @@ class ScreeningPolicy
 {
     public function viewAny(?User $user): bool
     {
+        if($user->type == 'E'){
+            return false;
+        }
         return true;
     }
 

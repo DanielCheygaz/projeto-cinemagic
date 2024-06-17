@@ -68,6 +68,8 @@
                         />
                         @endcan
 
+                        @can('viewAny', App\Models\Ticket::class)
+
                         <x-menus.menu-item
                             content="Validation"
                             selectable="1"
@@ -75,6 +77,8 @@
                             selected="{{ Route::currentRouteName() == 'validation.index'}}"
                         />
 
+                        @endcan
+                        
                         @endauth
 
                         <div class="grow"></div>
