@@ -17,8 +17,6 @@ class ScreeningsController extends Controller
 {
     public function indexOld(Request $request): View
     {
-        /*$screenings = Screening::orderBy(Movie->title)->paginate(20);
-        return view('screenings.index')->with('screenings', $screenings);*/
         $filterByMovie = $request->input('movie');
         $filterByTheater = $request->query('theater');
         $screeningsQuery = Screening::query();
@@ -50,21 +48,8 @@ class ScreeningsController extends Controller
             ->toArray();
 
         $screenings=Movie::whereIntegerInRaw('id',$idMovies)->get();
-        //$screenings = Screening::orderBy('date')->paginate(20);
 
         return view('screenings.index', compact('screenings'));
-    }
-
-    public function showOld(Movie $movie): View
-    {
-
-        $screeningsQuery = Screening::query();
-        $allScreenings = $screeningsQuery
-            ->where('movie_id',$movie->id)
-            ->whereBetween('date',[date("Y-m-d"), date('Y-m-d', strtotime('+2 weeks'))])
-            ->get();
-
-        return view('screenings.show', compact('allScreenings'));
     }
 
     public function show(Movie $movie): View
