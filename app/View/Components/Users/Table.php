@@ -14,7 +14,6 @@ class Table extends Component
     public function __construct(
         public object $users,
         public bool $showBlock = true,
-        public bool $showEdit = true,
         public bool $showDelete = true,
     )
     {

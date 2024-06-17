@@ -7,9 +7,8 @@ use App\Models\Theater;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TheaterFormRequest;
-use Carbon\Carbon;
 use App\Models\Seat;
-
+use Carbon\Carbon;
 
 
 
@@ -80,8 +79,24 @@ class TheatersController extends Controller
     public function show(Theater $theater): View
     {
         $theater->load('seat');
-        return view('theaters.show',['theater' => $theater]);
+        $rows = Seat::query()
+        ->select('row')
+        ->where('theater_id',$theater->id)
+        ->distinct()
+        ->pluck('row')
+        ->toArray();
+
+
+        $seatNumbers = Seat::query()
+        ->select('seat_number')
+        ->where('theater_id',$theater->id)
+        ->distinct()
+        ->pluck('seat_number')
+        ->toArray();
+
+        return view('theaters.show',['theater' => $theater, 'rows' => $rows, 'seatNumbers' => $seatNumbers]);
     }
+
     public function destroy(Theater $theater): RedirectResponse
     {
         $theaterToDelete= Theater::find($theater->id);
