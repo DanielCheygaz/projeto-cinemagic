@@ -10,9 +10,16 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MovieFormRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class MoviesController extends Controller
+class MoviesController extends \Illuminate\Routing\Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Movie::class);
+    }
     public function index(): View
     {
         $allMovies = Movie::orderBy('title')->paginate(20);
@@ -26,6 +33,7 @@ class MoviesController extends Controller
 
     public function create(): View
     {
+    
         $newMovie = new Movie();
         return view('movies.create')->with('movie', $newMovie);
     }

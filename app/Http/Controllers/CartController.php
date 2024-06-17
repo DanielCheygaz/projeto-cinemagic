@@ -18,7 +18,7 @@ class CartController extends Controller
         return view('cart.show', compact('cart'));
     }
 
-    public function addToCart(Request $request): RedirectResponse
+    public function addToCart(Request $request, Ticket $ticket): RedirectResponse
     {
         $validated = $request->validate([
             'screening_id' => 'required|exists:screenings,id',

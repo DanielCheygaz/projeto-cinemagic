@@ -6,7 +6,7 @@
     <div class="grow mt-6 space-y-4">
     <div class="flex space-x-4">
             <x-field.input name="movie" label="Movie" :readonly="$readonly"
-                            value="{{ old('movie', $screening->movie->title) }}"/>
+                            value="{{ old('movie', $screening->movieRef->title) }}"/>
             <x-field.input name="theater" label="Theater" :readonly="$readonly"
                             value="{{ old('theater', $screening->theater) }}"/>
         </div>

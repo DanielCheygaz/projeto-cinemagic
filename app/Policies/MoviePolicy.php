@@ -4,9 +4,11 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Movie;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MoviePolicy
 {
+    use HandlesAuthorization;
     public function viewAny(?User $user): bool
     {
         return true;
@@ -14,7 +16,7 @@ class MoviePolicy
 
     public function view(?User $user, Movie $movie): bool
     {
-        return $user->admin || $user->type == 'A';
+        return true;
     }
 
     public function create(User $user): bool

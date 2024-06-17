@@ -11,13 +11,14 @@ use Illuminate\View\View;
 use App\Models\Theater;
 use App\Models\Screening;
 use App\Models\Seat;
+use App\Models\User;
 
-class StatisticsController extends Controller
+class StatisticsController extends \Illuminate\Routing\Controller
 {
     public function __construct()
     {
         // Aplicar autorização para o recurso Movie não é necessário para a página de estatísticas
-        // $this->authorizeResource(Movie::class);
+        //$this->authorizeResource(User::class);
     }
 
     public function index(): View
