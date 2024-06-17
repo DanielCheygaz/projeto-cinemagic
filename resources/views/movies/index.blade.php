@@ -6,6 +6,14 @@
 <div class="flex justify-center">
     <div class="my-4 p-6 bg-white dark:bg-gray-900 overflow-hidden
     shadow-sm sm:rounded-lg text-gray-900 dark:text-gray-50">
+    <x-movies.filter-card
+        :filterAction="route('movies.index')"
+        :resetUrl="route('movies.index')"
+        :genres="$allGenres"
+        :genre="old('genre', $filterByGenre)"
+        :title="old('title', $filterByTitle)"
+        class="mb-6"
+    />
     @can('create', App\Models\Movie::class)
     <div class="flex items-center gap-4 mb-4">
         <x-button
@@ -15,14 +23,14 @@
     </div>
     @endcan
     <div class="font-base text-sm text-gray-700 dark:text-gray-300">
-        <x-movies.table :movies="$allMovies"
+        <x-movies.table :movies="$movies"
         :showView="true"
         :showEdit="true"
         :showDelete="true"
         />
     </div>
     <div class="mt-4">
-                {{ $allMovies->links() }}
+                {{ $movies->links() }}
             </div>
         </div>
     </div>

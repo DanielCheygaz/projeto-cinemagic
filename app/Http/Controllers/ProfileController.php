@@ -23,11 +23,10 @@ class ProfileController extends Controller
         ]);
     }
 
-        public function editPassword(Request $request): View
+    public function editPassword(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+            return view('profile.edit', [
+                'user' => $request->user()]);
     }
 
     /**

@@ -1,20 +1,22 @@
 <?php
 
-namespace App\View\Components\users;
+namespace App\View\Components\movies;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Table extends Component
+class FilterCard extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public object $users,
-        public bool $showBlock = true,
-        public bool $showDelete = true,
+        public array $genres,
+        public string $filterAction,
+        public string $resetUrl,
+        public ?string $genre = null,
+        public ?string $title = null,
     )
     {
         //
@@ -25,6 +27,6 @@ class Table extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.users.table');
+        return view('components.movies.filter-card');
     }
 }

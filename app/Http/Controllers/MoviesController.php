@@ -8,22 +8,46 @@ use App\Models\Screening;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MovieFormRequest;
+use App\Models\Genre;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class MoviesController extends \Illuminate\Routing\Controller
 {
+
     use AuthorizesRequests;
 
     public function __construct()
     {
         $this->authorizeResource(Movie::class);
     }
-    public function index(): View
+
+    public function indexOld(): View
+
     {
         $allMovies = Movie::orderBy('title')->paginate(20);
         return view('movies.index')->with('allMovies', $allMovies);
+    }
+
+    public function index(Request $request): View
+    {
+        $allGenres = Genre::orderBy('name')->pluck('name','code')->toArray();
+        $allGenres = array_merge([''=>'Any Genre'], $allGenres);
+
+
+        $filterByGenre = $request->query('genre');
+        $filterByTitle = $request->query('title');
+        $moviesQuery=Movie::query();
+        if($filterByGenre !== null){
+            $moviesQuery->where('genre_code', $filterByGenre);
+        }
+        if($filterByTitle !== null){
+            $moviesQuery->where('title','like',"%$filterByTitle%");
+        }
+
+        $movies = $moviesQuery->orderBy('title')->paginate(20)->withQueryString();
+        return view('movies.index',compact('allGenres', 'movies', 'filterByGenre', 'filterByTitle'));
     }
 
     public function showCase(): View

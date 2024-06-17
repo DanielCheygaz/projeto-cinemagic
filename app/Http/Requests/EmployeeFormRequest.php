@@ -45,8 +45,8 @@ class EmployeeFormRequest extends FormRequest
                 'email',
                 Rule::unique('users', 'email')->ignore($this->user?->id)
             ],
-            'nif' => 'required|string|max:9',
-            'payment_type' => 'required|in:VISA,PAYPAL,MBWAY',
+            'nif' => 'sometimes|string|max:9',
+            'payment_type' => 'sometimes|in:VISA,PAYPAL,MBWAY',
             'photo_file' => 'sometimes|image|max:4096', // maxsize = 4Mb
         ];
     }
