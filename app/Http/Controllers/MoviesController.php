@@ -23,13 +23,6 @@ class MoviesController extends \Illuminate\Routing\Controller
         $this->authorizeResource(Movie::class);
     }
 
-    public function indexOld(): View
-
-    {
-        $allMovies = Movie::orderBy('title')->paginate(20);
-        return view('movies.index')->with('allMovies', $allMovies);
-    }
-
     public function index(Request $request): View
     {
         $allGenres = Genre::orderBy('name')->pluck('name','code')->toArray();
@@ -46,7 +39,7 @@ class MoviesController extends \Illuminate\Routing\Controller
             $moviesQuery->where('title','like',"%$filterByTitle%");
         }
 
-        $movies = $moviesQuery->orderBy('title')->paginate(20)->withQueryString();
+        $movies = $moviesQuery->orderBy('title')->whereNull('deleted_at')->paginate(20)->withQueryString();
         return view('movies.index',compact('allGenres', 'movies', 'filterByGenre', 'filterByTitle'));
     }
 
@@ -57,7 +50,7 @@ class MoviesController extends \Illuminate\Routing\Controller
 
     public function create(): View
     {
-    
+
         $newMovie = new Movie();
         return view('movies.create')->with('movie', $newMovie);
     }
@@ -106,5 +99,20 @@ class MoviesController extends \Illuminate\Routing\Controller
         //$movies=Movie::whereIntegerInRaw('id',$idMovies)->get();
 
         return view('movies.show',['movie' => $movie,'screenings' => $screenings]);
+    }
+
+    public function destroy(Movie $movie): RedirectResponse
+    {
+        $movieToDelete= Movie::find($movie->id);
+
+        if($movieToDelete) {
+            $movieToDelete->deleted_at= date("Y-m-d H:i:s");
+            $movieToDelete->save();
+        }
+
+        $htmlMessage = "Movie <u>{$movie->title}</u> has been deleted successfully!";
+        return redirect()->route('movies.index')
+            ->with('alert-type', 'success')
+            ->with('alert-msg', $htmlMessage);
     }
 }
