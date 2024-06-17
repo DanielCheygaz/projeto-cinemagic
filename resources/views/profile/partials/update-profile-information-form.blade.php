@@ -25,13 +25,19 @@
 
         <div>
             <x-input-label for="nif" :value="__('NIF')" />
-            <x-text-input id="nif" name="nif" type="text" class="mt-1 block w-full" :value="old('nif', $user->nif)" required autocomplete="nif" />
+            <x-text-input id="nif" name="nif" type="text" class="mt-1 block w-full" :value="old('nif', $user->customerRef->nif)"/>
             <x-input-error class="mt-2" :messages="$errors->get('nif')" />
         </div>
 
         <div>
-            <x-input-label for="payment_type" :value="__('Payment type')" />
-            <x-text-input id="payment_type" name="payment_type" type="text" class="mt-1 block w-full" :value="old('payment_type', $user->payment_type)" required autocomplete="payment_type" />
+            <x-field.select name="payment_type" label="Payment type"
+                        :value="old('payment_type',$user->customerRef->payment_type)"
+                        :options="$paymentTypes = [
+                            '' => 'No Payment Type',
+                            'VISA' => 'VISA',
+                            'PAYPAL' => 'PAYPAL',
+                            'MBWAY' => 'MBWAY'
+                        ]"/>
             <x-input-error class="mt-2" :messages="$errors->get('payment_type')" />
         </div>
 
